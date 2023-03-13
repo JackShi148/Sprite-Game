@@ -1,5 +1,0 @@
-﻿  main.cpp
-c:\users\99276\source\repos\tom_jerry_game\tom_jerry_game\main.cpp(76): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\99276\source\repos\tom_jerry_game\tom_jerry_game\main.cpp(79): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-c:\users\99276\source\repos\tom_jerry_game\tom_jerry_game\main.cpp(82): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
-  Tom_Jerry_Game.vcxproj -> C:\Users\99276\source\repos\Tom_Jerry_Game\Debug\Tom_Jerry_Game.exe
