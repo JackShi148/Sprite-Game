@@ -16,12 +16,12 @@ UserSprite *Tom=NULL;
 AutoSprite *Autosprite[maxNum] = { 0 };
 int timerid = 0, movetimerinterval = 40;
 int createid = 1, createtimerinterval = 1000;
-//int score = 0;  ·ÖÊı¶¨ÒåÔÚÓÃ»§¾«ÁéÖĞ
+//int score = 0;  åˆ†æ•°å®šä¹‰åœ¨ç”¨æˆ·ç²¾çµä¸­
 ACL_Image tomimg, jerryimg, heartimg, dogimg;
 ACL_Color color = RGB(225, 0, 0), color1 = RGB(28, 28, 28);
 ACL_Sound ej, et, h, bk;
 rect WinRect;
-void create(AutoSprite **autosprite);//´«ÈëÖ¸ÕëÊı×é
+void create(AutoSprite **autosprite);//ä¼ å…¥æŒ‡é’ˆæ•°ç»„
 void create(UserSprite **usersprite);
 void Paint();
 void keyEvent(int key,int event);
@@ -66,7 +66,7 @@ void Paint()
 	if (Tom)
 	{
 		//Tom->PaintSprite();
-		int s = Tom->getScore();  //Ëæ×Å·ÖÊıÔö¼ÓTOM±ä´ó
+		int s = Tom->getScore();  //éšç€åˆ†æ•°å¢åŠ TOMå˜å¤§
 		switch (s/15)
 		{
 		case 0:
@@ -88,7 +88,7 @@ void Paint()
 		setTextColor(color1);
 		paintText((winWidth-150)/2, 0, str);
 		line(0, 20, winWidth, 20);
-		sprintf_s(str3, "×£ÀÏÊ¦ĞÂÄê´ó¼ª£¬ÉíÌå½¡¿µ£¬ÍòÊÂÈçÒâ£¡");
+		sprintf_s(str3, "åœ¨èº²é¿è¿½æ•çš„åŒæ—¶è·å¾—å°½å¯èƒ½å¤šçš„åˆ†æ•°ï¼ŒåŠ æ²¹ï¼");
 		setTextSize(20);
 		setTextColor(color);
 		paintText(325, 21, str3);
@@ -104,12 +104,12 @@ void keyEvent(int key, int event)
 	{
 		if (Autosprite[i])
 		{
-			if (Tom->collision(Autosprite[i]->getRect()))//¸ù¾İ×Ô¶¯¾«ÁéµÄ²»Í¬ÉèÖÃ²»Í¬µÄScoreÖµÇø·Ö
+			if (Tom->collision(Autosprite[i]->getRect()))//æ ¹æ®è‡ªåŠ¨ç²¾çµçš„ä¸åŒè®¾ç½®ä¸åŒçš„Scoreå€¼åŒºåˆ†
 			{
 				switch (Autosprite[i]->getScore())
 				{
 				case 1:
-					playSound(ej, 0);  //tomÓëÃ¿¸ö¾«ÁéÅö×²Ê±»á·¢³ö²»Í¬µÄÒôĞ§
+					playSound(ej, 0);  //tomä¸æ¯ä¸ªç²¾çµç¢°æ’æ—¶ä¼šå‘å‡ºä¸åŒçš„éŸ³æ•ˆ
 					Tom->addScore();
 					break;
 				case 2:
@@ -131,7 +131,7 @@ void keyEvent(int key, int event)
 	Gameover();
 }
 
-void timerEvent(int id)  //ÔÚtimerEventÖĞÒ²ÒªÌí¼ÓÅĞ¶Ï£¬·ñÔò×Ô¼ºÅö×²ÉÏÈ¥ÎŞ·¨ÅĞ¶Ï
+void timerEvent(int id)  //åœ¨timerEventä¸­ä¹Ÿè¦æ·»åŠ åˆ¤æ–­ï¼Œå¦åˆ™è‡ªå·±ç¢°æ’ä¸Šå»æ— æ³•åˆ¤æ–­
 {
 	int i = 0;
 	switch (id)
@@ -182,7 +182,7 @@ void timerEvent(int id)  //ÔÚtimerEventÖĞÒ²ÒªÌí¼ÓÅĞ¶Ï£¬·ñÔò×Ô¼ºÅö×²ÉÏÈ¥ÎŞ·¨ÅĞ¶Ï
 
 void create(AutoSprite **autosprite)
 {
-	int jx, jy, jrx = 3, jry = 3;//jerry³õÊ¼Öµ
+	int jx, jy, jrx = 3, jry = 3;//jerryåˆå§‹å€¼
 	int hx, hy, hrx = 2, hry = 2;
 	int dx, dy, drx = 2, dry = 2;
 	jx = rand() % winWidth - jerryWidth;
@@ -221,7 +221,7 @@ void create(UserSprite **usersprite)
 void Gameover()
 {
 	int l = Tom->getLife();
-	if (l == 0)  //Èç¹ûÉúÃüÖµÓÃÍê
+	if (l == 0)  //å¦‚æœç”Ÿå‘½å€¼ç”¨å®Œ
 	{
 		char str1[20];
 		sprintf_s(str1, "You lost!");
@@ -237,7 +237,7 @@ void Gameover()
 	else
 	{
 		int sco = Tom->getScore();
-		if (sco == 50)  //µ±×½×¡50Ö»jerry,ÓÎÏ·Ê¤Àû
+		if (sco == 50)  //å½“æ‰ä½50åªjerry,æ¸¸æˆèƒœåˆ©
 		{
 			char str2[50];
 			sprintf_s(str2, "Congratulations-Happy new year!");
