@@ -16,12 +16,11 @@ UserSprite *Tom=NULL;
 AutoSprite *Autosprite[maxNum] = { 0 };
 int timerid = 0, movetimerinterval = 40;
 int createid = 1, createtimerinterval = 1000;
-//int score = 0;  分数定义在用户精灵中
 ACL_Image tomimg, jerryimg, heartimg, dogimg;
 ACL_Color color = RGB(225, 0, 0), color1 = RGB(28, 28, 28);
 ACL_Sound ej, et, h, bk;
 rect WinRect;
-void create(AutoSprite **autosprite);//传入指针数组
+void create(AutoSprite **autosprite);
 void create(UserSprite **usersprite);
 void Paint();
 void keyEvent(int key,int event);
@@ -66,7 +65,7 @@ void Paint()
 	if (Tom)
 	{
 		//Tom->PaintSprite();
-		int s = Tom->getScore();  //随着分数增加TOM变大
+		int s = Tom->getScore();  // get tom current score
 		switch (s/15)
 		{
 		case 0:
@@ -83,12 +82,12 @@ void Paint()
 			break;
 		}
 		char str[50],str3[50];
-		sprintf_s(str, "Score:%d  Life:%d", Tom->getScore(),Tom->getLife());
+		sprintf_s(str, sizeof(str), "Score:%d  Life:%d", Tom->getScore(),Tom->getLife());
 		setTextSize(20);
 		setTextColor(color1);
 		paintText((winWidth-150)/2, 0, str);
 		line(0, 20, winWidth, 20);
-		sprintf_s(str3, "在躲避追捕的同时获得尽可能多的分数，加油！");
+		sprintf_s(str3, sizeof(str3), "Happy Game!");
 		setTextSize(20);
 		setTextColor(color);
 		paintText(325, 21, str3);
@@ -104,12 +103,12 @@ void keyEvent(int key, int event)
 	{
 		if (Autosprite[i])
 		{
-			if (Tom->collision(Autosprite[i]->getRect()))//根据自动精灵的不同设置不同的Score值区分
+			if (Tom->collision(Autosprite[i]->getRect()))// check if tom collide with auto sprites
 			{
 				switch (Autosprite[i]->getScore())
 				{
 				case 1:
-					playSound(ej, 0);  //tom与每个精灵碰撞时会发出不同的音效
+					playSound(ej, 0);  // play corresponding sound, 1 for jerry, 2 for heart, -1 for doy
 					Tom->addScore();
 					break;
 				case 2:
@@ -131,7 +130,7 @@ void keyEvent(int key, int event)
 	Gameover();
 }
 
-void timerEvent(int id)  //在timerEvent中也要添加判断，否则自己碰撞上去无法判断
+void timerEvent(int id)  // timerEvent to decide do what action on auto sprites: check collision or create new one
 {
 	int i = 0;
 	switch (id)
@@ -182,9 +181,9 @@ void timerEvent(int id)  //在timerEvent中也要添加判断，否则自己碰�
 
 void create(AutoSprite **autosprite)
 {
-	int jx, jy, jrx = 3, jry = 3;//jerry初始值
-	int hx, hy, hrx = 2, hry = 2;
-	int dx, dy, drx = 2, dry = 2;
+	int jx, jy, jrx = 3, jry = 3;	// jerry
+	int hx, hy, hrx = 2, hry = 2;	// heart
+	int dx, dy, drx = 2, dry = 2;	// dog
 	jx = rand() % winWidth - jerryWidth;
 	if (jx < 0) jx = 0;
 	jy = rand() % winHeight - jerryHeight;
@@ -221,10 +220,10 @@ void create(UserSprite **usersprite)
 void Gameover()
 {
 	int l = Tom->getLife();
-	if (l == 0)  //如果生命值用完
+	if (l == 0)  // tom died
 	{
 		char str1[20];
-		sprintf_s(str1, "You lost!");
+		sprintf_s(str1, sizeof(str1), "You lost!");
 		cancelTimer(timerid);
 		cancelTimer(createid);
 		stopSound(bk);
@@ -237,17 +236,17 @@ void Gameover()
 	else
 	{
 		int sco = Tom->getScore();
-		if (sco == 50)  //当捉住50只jerry,游戏胜利
+		if (sco == 50)  // get the target point
 		{
 			char str2[50];
-			sprintf_s(str2, "Congratulations-Happy new year!");
+			sprintf_s(str2, sizeof(str2), "Congratulations! You WIN!");
 			cancelTimer(timerid);
 			cancelTimer(createid);
 			stopSound(bk);
 			beginPaint();
 			setTextSize(50);
 			setTextColor(color);
-			paintText(100, winHeight / 2 - 20, str2);
+			paintText(winWidth / 2 - 100, winHeight / 2 - 20, str2);
 			endPaint();
 		}
 	}
